@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mnswpr.library;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,11 +10,22 @@ using System.Windows.Forms;
 
 namespace Mnswpr
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
-        public Form1()
+        Game game = null;
+        public FormMain()
         {
             InitializeComponent();
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            game = new Game(pnlArena);
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            game.Start();
         }
     }
 }

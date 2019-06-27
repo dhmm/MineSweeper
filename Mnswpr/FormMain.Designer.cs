@@ -1,6 +1,6 @@
 ﻿namespace Mnswpr
 {
-    partial class Form1
+    partial class FormMain
     {
         /// <summary>
         /// Required designer variable.
@@ -28,20 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.pnlArena = new System.Windows.Forms.Panel();
+            this.btnStart = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // Form1
+            // pnlArena
+            // 
+            this.pnlArena.Location = new System.Drawing.Point(39, 41);
+            this.pnlArena.Name = "pnlArena";
+            this.pnlArena.Size = new System.Drawing.Size(200, 200);
+            this.pnlArena.TabIndex = 0;
+            // 
+            // btnStart
+            // 
+            this.btnStart.Location = new System.Drawing.Point(42, 9);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 1;
+            this.btnStart.Text = "button1";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(864, 605);
-            this.Name = "Form1";
+            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.pnlArena);
+            this.Name = "FormMain";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel pnlArena;
+        private System.Windows.Forms.Button btnStart;
     }
 }
 
