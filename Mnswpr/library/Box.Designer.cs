@@ -47,11 +47,13 @@
             // 
             // lblMines
             // 
+            this.lblMines.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMines.Location = new System.Drawing.Point(0, 0);
             this.lblMines.Name = "lblMines";
             this.lblMines.Size = new System.Drawing.Size(20, 20);
             this.lblMines.TabIndex = 1;
-            this.lblMines.Visible = false;
+            this.lblMines.Text = "9";
+            this.lblMines.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnBox
             // 

@@ -34,6 +34,9 @@ namespace Mnswpr.library
             ClearAll();
             AddBoxes();
             AddMines();
+            JoinBoxes();
+            AddNumbers();
+
         }
         private void ClearAll()
         {
@@ -46,11 +49,83 @@ namespace Mnswpr.library
             {
                 for(int col = 0; col < BoxesInWidth; col++)
                 {
-                    Box box = new Box();
+                    Box box = new Box(this,row,col);
                     box.Left = col * BoxWidth;
-                    box.Top = row * BoxHeight;
+                    box.Top = row * BoxHeight;                    
                     Boxes[row, col] = box;
                     this.PnlArena.Controls.Add(box);
+                }
+            }
+        }
+        private void JoinBoxes()
+        {
+            for (int row = 0; row < BoxesInWidth; row++)
+            {
+                for (int col = 0; col < BoxesInHeight; col++)
+                {
+                    Box activeBox = Boxes[row, col];
+
+                    if (row > 0)
+                    {
+                        activeBox.TopBox = Boxes[row - 1, col];
+                        if (col > 0)
+                        { activeBox.LeftTopBox = Boxes[row - 1, col - 1]; }
+
+                        if (col < BoxesInHeight - 1)
+                        { activeBox.RightTopBox = Boxes[row - 1, col + 1]; }
+                    }
+
+                    if (col > 0)
+                    { activeBox.LeftBox = Boxes[row, col - 1]; }
+                    if (col < BoxesInHeight - 1)
+                    { activeBox.RightBox = Boxes[row, col + 1]; }
+
+                    if (row < BoxesInWidth - 1)
+                    {
+                        activeBox.BottomBox = Boxes[row + 1, col];
+
+                        if (col > 0)
+                        { activeBox.LeftBottomBox = Boxes[row + 1, col - 1]; }
+
+                        if (col < BoxesInHeight - 1)
+                        { activeBox.RightBottomBox = Boxes[row + 1, col + 1]; }
+                    }                    
+                }
+            }
+        }
+        private void AddNumbers()
+        {
+            for(int row=0;row<BoxesInWidth;row++)
+            {
+                for (int col = 0; col < BoxesInHeight; col++)
+                {
+                    int total = 0;
+                    if (row > 0)
+                    {
+                        total += (Boxes[row - 1, col].HasMine ? 1 : 0);
+                        if (col > 0)
+                        { total += (Boxes[row - 1, col - 1].HasMine ? 1 : 0); }
+
+                        if (col < BoxesInHeight - 1)
+                        { total += (Boxes[row - 1, col + 1].HasMine ? 1 : 0); }
+                    }
+
+                    if (col > 0)
+                    { total += (Boxes[row, col - 1].HasMine ? 1 : 0); }
+                    if (col < BoxesInHeight - 1)
+                    { total += (Boxes[row, col + 1].HasMine ? 1 : 0); }
+
+                    if (row < BoxesInWidth - 1)
+                    {
+                        total += (Boxes[row + 1, col].HasMine ? 1 : 0);
+
+                        if (col > 0)
+                        { total += (Boxes[row + 1, col - 1].HasMine ? 1 : 0); }
+
+                        if (col < BoxesInHeight - 1)
+                        { total += (Boxes[row + 1, col + 1].HasMine ? 1 : 0); }
+                    }
+                    Boxes[row, col].TotalMines = total;
                 }
             }
         }
@@ -68,7 +143,20 @@ namespace Mnswpr.library
                     minesToAdd--;
                 }
             }
-        }
+        }        
         
+        public void OpenBoxWithLeftClick(int row,int col)
+        {
+            Box box = Boxes[row, col];
+            box.Open();
+            if(box.HasMine)
+            {
+                MessageBox.Show("Booom");
+            }
+        }
+        public void OpenBoxWithRLClick(int row,int col)
+        {
+
+        }
     }
 }
