@@ -153,10 +153,16 @@ namespace Mnswpr.library
             {
                 MessageBox.Show("Booom");
             }
+            else if ( box.TotalMines == 0 )
+            {
+                box.OpenAll();
+            }
         }
+        //Must run only on opened cell
         public void OpenBoxWithRLClick(int row,int col)
         {
-
+            Box box = Boxes[row, col];
+            box.OpenAllWithrRLClick();        
         }
     }
 }

@@ -54,6 +54,8 @@
             this.lblMines.TabIndex = 1;
             this.lblMines.Text = "9";
             this.lblMines.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblMines.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblMines_MouseDown);
+            this.lblMines.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lblMines_MouseUp);
             // 
             // btnBox
             // 
@@ -64,8 +66,7 @@
             this.btnBox.Name = "btnBox";
             this.btnBox.Size = new System.Drawing.Size(20, 20);
             this.btnBox.TabIndex = 2;
-            this.btnBox.UseVisualStyleBackColor = false;
-            this.btnBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnBox_MouseDown);
+            this.btnBox.UseVisualStyleBackColor = false;            
             this.btnBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnBox_MouseUp);
             // 
             // Box
