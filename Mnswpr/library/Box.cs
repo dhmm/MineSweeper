@@ -325,6 +325,21 @@ namespace Mnswpr.library
             }
         }
 
+        internal void GameLostOpen()
+        {
+            if(HasMine && !HasFlag)
+            {
+                MineExplosed();
+            }
+            else
+            {
+                if(!HasFlag)
+                {
+                    Open();
+                }
+            }
+        }
+
         private void btnBox_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -472,9 +487,12 @@ namespace Mnswpr.library
 
         private void pctFlag_MouseClick(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Right)
+            if (Game.GameLost == false)
             {
-                this.HasFlag = false;
+                if (e.Button == MouseButtons.Right)
+                {
+                    this.HasFlag = false;
+                }
             }
         }
     }

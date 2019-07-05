@@ -19,7 +19,7 @@ namespace Mnswpr.library
 
         Box[,] Boxes = null;
 
-        bool GameLost = false;
+        public bool GameLost { set; get; } = false;
 
         public Game(Panel pnlArena)
         {
@@ -128,11 +128,7 @@ namespace Mnswpr.library
                         if (col < BoxesInHeight - 1)
                         { total += (Boxes[row + 1, col + 1].HasMine ? 1 : 0); }
                     }
-                    Boxes[row, col].TotalMines = total;
-                    if(Boxes[row,col].HasMine)
-                    {
-                        Boxes[row, col].TotalMines = 0;
-                    }
+                    Boxes[row, col].TotalMines = total;                    
                 }
             }
         }
@@ -153,28 +149,46 @@ namespace Mnswpr.library
         
         public void OpenBoxWithLeftClick(int row,int col)
         {
-            Box box = Boxes[row, col];
-            box.Open();
-            if(box.HasMine)
+            if (GameLost == false)
             {
-                this.YouLost(box);
-            }
-            else if ( box.TotalMines == 0 )
-            {
-                box.OpenAll();
+                Box box = Boxes[row, col];
+                box.Open();
+                if (box.HasMine)
+                {
+                    this.YouLost(box);
+                }
+                else if (box.TotalMines == 0)
+                {
+                    box.OpenAll();
+                }
             }
         }
         //Must run only on opened cell
         public void OpenBoxWithRLClick(int row,int col)
         {
-            Box box = Boxes[row, col];
-            box.OpenAllWithrRLClick();        
+            if (GameLost == false)
+            {
+                Box box = Boxes[row, col];
+                box.OpenAllWithrRLClick();
+            }       
         }
 
         public void YouLost(Box box)
         {
-            box.MineExplosed();
+            GameLost = true;
+            box.MineExplosed();            
             MessageBox.Show("You lost");
+            GameLostOpenAll();
+        }
+        public void GameLostOpenAll()
+        {
+            for (int row = 0; row < BoxesInWidth; row++)
+            {
+                for (int col = 0; col < BoxesInHeight; col++)
+                {
+                    Boxes[row, col].GameLostOpen();
+                }
+            }
         }
     }
 }
