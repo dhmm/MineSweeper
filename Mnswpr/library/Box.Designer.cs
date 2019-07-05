@@ -37,6 +37,7 @@
             // 
             // pctFlag
             // 
+            this.pctFlag.BackColor = System.Drawing.Color.Silver;
             this.pctFlag.Image = ((System.Drawing.Image)(resources.GetObject("pctFlag.Image")));
             this.pctFlag.Location = new System.Drawing.Point(0, 0);
             this.pctFlag.Name = "pctFlag";
@@ -44,6 +45,7 @@
             this.pctFlag.TabIndex = 0;
             this.pctFlag.TabStop = false;
             this.pctFlag.Visible = false;
+            this.pctFlag.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pctFlag_MouseClick);
             // 
             // lblMines
             // 
@@ -59,14 +61,14 @@
             // 
             // btnBox
             // 
-            this.btnBox.BackColor = System.Drawing.SystemColors.Control;
+            this.btnBox.BackColor = System.Drawing.Color.Silver;
             this.btnBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBox.Location = new System.Drawing.Point(0, 0);
             this.btnBox.Margin = new System.Windows.Forms.Padding(0);
             this.btnBox.Name = "btnBox";
             this.btnBox.Size = new System.Drawing.Size(20, 20);
             this.btnBox.TabIndex = 2;
-            this.btnBox.UseVisualStyleBackColor = false;            
+            this.btnBox.UseVisualStyleBackColor = false;
             this.btnBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnBox_MouseUp);
             // 
             // Box

@@ -34,6 +34,7 @@
             // 
             // pnlArena
             // 
+            this.pnlArena.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlArena.Location = new System.Drawing.Point(39, 41);
             this.pnlArena.Name = "pnlArena";
             this.pnlArena.Size = new System.Drawing.Size(200, 200);

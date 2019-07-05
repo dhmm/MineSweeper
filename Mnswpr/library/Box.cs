@@ -150,15 +150,90 @@ namespace Mnswpr.library
                 }
             }
         }
+        internal int GetFlagsCountAround()
+        {
+            int flags = 0;
+            if (LeftTopBox != null)
+            {
+                if (LeftTopBox.HasFlag)
+                {
+                    flags++;
+                }
+            }
+            if (LeftBottomBox != null)
+            {
+                if (LeftBottomBox.HasFlag)
+                {
+                    flags++;
+                }
+            }
+            if (LeftBox != null)
+            {
+                if (LeftBox.HasFlag)
+                {
+                    flags++;
+                }
+            }
+            if (TopBox != null)
+            {
+                if (TopBox.HasFlag)
+                {
+                    flags++;
+                }
+            }
+            if (RightTopBox != null)
+            {
+                if (RightTopBox.HasFlag)
+                {
+                    flags++;
+                }
+            }
+            if (RightBottomBox != null)
+            {
+                if (RightBottomBox.HasFlag)
+                {
+                    flags++;
+                }
+            }
+            if (RightBox != null)
+            {
+                if (RightBox.HasFlag)
+                {
+                    flags++;
+                }
+            }
+            if (BottomBox != null)
+            {
+                if (BottomBox.HasFlag)
+                {
+                    flags++;
+                }
+            }
+            return flags;
+        }
+
+        public void MineExplosed()
+        {
+            this.btnBox.Hide();
+            this.pctFlag.Hide();
+            this.lblMines.Hide();
+            this.BackColor = Color.Red;
+        }
+
         internal void OpenAllWithrRLClick()
-        {            
+        { 
+            if( this.TotalMines != GetFlagsCountAround() )
+            {
+                return;
+            }
+                           
             if (LeftTopBox != null)
             {
                 if (LeftTopBox.Checked == false)
                 {
                     if(LeftTopBox.HasMine && !LeftTopBox.HasFlag)
                     {
-                        MessageBox.Show("Boooom");
+                        Game.YouLost(LeftTopBox);
                         return;
                     }
                     LeftTopBox.OpenAll();
@@ -170,7 +245,7 @@ namespace Mnswpr.library
                 {
                     if (LeftBottomBox.HasMine && !LeftBottomBox.HasFlag)
                     {
-                        MessageBox.Show("Boooom");
+                        Game.YouLost(LeftBottomBox);
                         return;
                     }
                     LeftBottomBox.OpenAll();
@@ -182,7 +257,7 @@ namespace Mnswpr.library
                 {
                     if (LeftBox.HasMine && !LeftBox.HasFlag)
                     {
-                        MessageBox.Show("Boooom");
+                        Game.YouLost(LeftBox);
                         return;
                     }
                     LeftBox.OpenAll();
@@ -194,7 +269,7 @@ namespace Mnswpr.library
                 {
                     if (TopBox.HasMine && !TopBox.HasFlag)
                     {
-                        MessageBox.Show("Boooom");
+                        Game.YouLost(TopBox);
                         return;
                     }
                     TopBox.OpenAll();
@@ -206,7 +281,7 @@ namespace Mnswpr.library
                 {
                     if (RightTopBox.HasMine && !RightTopBox.HasFlag)
                     {
-                        MessageBox.Show("Boooom");
+                        Game.YouLost(RightTopBox);
                         return;
                     }
                     RightTopBox.OpenAll();
@@ -218,7 +293,7 @@ namespace Mnswpr.library
                 {
                     if (RightBottomBox.HasMine && !RightBottomBox.HasFlag)
                     {
-                        MessageBox.Show("Boooom");
+                        Game.YouLost(RightBottomBox);
                         return;
                     }
                     RightBottomBox.OpenAll();
@@ -230,7 +305,7 @@ namespace Mnswpr.library
                 {
                     if (RightBox.HasMine && !RightBox.HasFlag)
                     {
-                        MessageBox.Show("Boooom");
+                        Game.YouLost(RightBox);
                         return;
                     }
                     RightBox.OpenAll();
@@ -242,7 +317,7 @@ namespace Mnswpr.library
                 {
                     if (BottomBox.HasMine && !BottomBox.HasFlag)
                     {
-                        MessageBox.Show("Boooom");
+                        Game.YouLost(BottomBox);
                         return;
                     }
                     BottomBox.OpenAll();
@@ -267,24 +342,140 @@ namespace Mnswpr.library
             if (e.Button == MouseButtons.Right)
             {
                 RightButton = true;
+                if(LeftButton)
+                {
+                    ColorAroundBoxes();
+                }
             }
 
             if (e.Button == MouseButtons.Left)
             {
                 LeftButton = true;
+                if(RightButton)
+                {
+                    ColorAroundBoxes();
+                }
             }
         }
-
+        public void SetRLClickColor()
+        {
+            this.btnBox.BackColor = Color.Gray;
+        }
+        public void RestoreColor()
+        {
+            this.btnBox.BackColor = Color.Silver;
+        }
+        private void ColorAroundBoxes()
+        {            
+            if (LeftTopBox != null)
+            {
+                if (LeftTopBox.Opened == false)
+                {
+                    LeftTopBox.SetRLClickColor();
+                }
+            }
+            if (LeftBottomBox != null)
+            {
+                if (LeftBottomBox.Opened == false)
+                {
+                    LeftBottomBox.SetRLClickColor();
+                }
+            }
+            if (LeftBox != null)
+            {
+                if (LeftBox.Opened == false)
+                {
+                    LeftBox.SetRLClickColor();
+                }
+            }
+            if (TopBox != null)
+            {
+                if (TopBox.Opened == false)
+                {
+                    TopBox.SetRLClickColor();
+                }
+            }
+            if (RightTopBox != null)
+            {
+                if (RightTopBox.Opened == false)
+                {
+                    RightTopBox.SetRLClickColor();
+                }
+            }
+            if (RightBottomBox != null)
+            {
+                if (RightBottomBox.Opened == false)
+                {
+                    RightBottomBox.SetRLClickColor();
+                }
+            }
+            if (RightBox != null)
+            {
+                if (RightBox.Opened == false)
+                {
+                    RightBox.SetRLClickColor();
+                }
+            }
+            if (BottomBox != null)
+            {
+                if (BottomBox.Opened == false)
+                {
+                    BottomBox.SetRLClickColor();
+                }
+            }
+        }
+        private void ClearAroundBoxesColor()
+        {
+            if (LeftTopBox != null)
+            {
+                LeftTopBox.RestoreColor();
+            }
+            if (LeftBottomBox != null)
+            {
+                LeftBottomBox.RestoreColor();
+            }
+            if (LeftBox != null)
+            {
+                LeftBox.RestoreColor();
+            }
+            if (TopBox != null)
+            {
+                TopBox.RestoreColor();
+            }
+            if (RightTopBox != null)
+            {
+                RightTopBox.RestoreColor();
+            }
+            if (RightBottomBox != null)
+            {
+                RightBottomBox.RestoreColor();
+            }
+            if (RightBox != null)
+            {
+                RightBox.RestoreColor();
+            }
+            if (BottomBox != null)
+            {
+                BottomBox.RestoreColor();
+            }
+        }
         private void lblMines_MouseUp(object sender, MouseEventArgs e)
         {
             if (RightButton && LeftButton)
             {
+                ClearAroundBoxesColor();
                 Game.OpenBoxWithRLClick(Row, Col);
             }
             RightButton = false;
             LeftButton = false;
         }
 
-      
+        private void pctFlag_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right)
+            {
+                this.HasFlag = false;
+            }
+        }
     }
 }

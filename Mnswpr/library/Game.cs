@@ -19,6 +19,8 @@ namespace Mnswpr.library
 
         Box[,] Boxes = null;
 
+        bool GameLost = false;
+
         public Game(Panel pnlArena)
         {
             this.PnlArena = pnlArena;
@@ -31,6 +33,7 @@ namespace Mnswpr.library
         }
         public void Start()
         {
+            GameLost = false;
             ClearAll();
             AddBoxes();
             AddMines();
@@ -126,6 +129,10 @@ namespace Mnswpr.library
                         { total += (Boxes[row + 1, col + 1].HasMine ? 1 : 0); }
                     }
                     Boxes[row, col].TotalMines = total;
+                    if(Boxes[row,col].HasMine)
+                    {
+                        Boxes[row, col].TotalMines = 0;
+                    }
                 }
             }
         }
@@ -138,8 +145,7 @@ namespace Mnswpr.library
                 int col = R.Next(BoxesInHeight);
                 if(Boxes[row,col].HasMine == false)
                 {
-                    Boxes[row, col].HasMine = true;
-                    Boxes[row, col].BackColor = System.Drawing.Color.Red;
+                    Boxes[row, col].HasMine = true;                                   
                     minesToAdd--;
                 }
             }
@@ -151,7 +157,7 @@ namespace Mnswpr.library
             box.Open();
             if(box.HasMine)
             {
-                MessageBox.Show("Booom");
+                this.YouLost(box);
             }
             else if ( box.TotalMines == 0 )
             {
@@ -163,6 +169,12 @@ namespace Mnswpr.library
         {
             Box box = Boxes[row, col];
             box.OpenAllWithrRLClick();        
+        }
+
+        public void YouLost(Box box)
+        {
+            box.MineExplosed();
+            MessageBox.Show("You lost");
         }
     }
 }
