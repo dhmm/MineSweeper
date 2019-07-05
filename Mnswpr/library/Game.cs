@@ -13,18 +13,36 @@ namespace Mnswpr.library
         Panel PnlArena = null;
         int BoxWidth = 20;
         int BoxHeight = 20;
-        int BoxesInWidth = 10;
-        int BoxesInHeight = 10;
-        int TotalMines = 10;
+        public int BoxesInWidth = 10;
+        public int BoxesInHeight = 10;
+        public int TotalMines = 10;
+
+
+        Label LblMineCount { set; get; }
+        private int _flagsCount = 0;
+        public int FlagsCount
+        {
+            set
+            {
+                _flagsCount = value;
+                LblMineCount.Text = (TotalMines - value).ToString();
+            }
+            get
+            {
+                return _flagsCount;
+            }
+        }
+        
 
         Box[,] Boxes = null;
 
         public bool GameLost { set; get; } = false;
         public bool GameWin { set; get; } = false;
 
-        public Game(Panel pnlArena)
+        public Game(Panel pnlArena, Label lblMineCount)
         {
             this.PnlArena = pnlArena;
+            this.LblMineCount = lblMineCount;
             Boxes = new Box[BoxesInWidth, BoxesInHeight];
             if(TotalMines > ( BoxesInWidth * BoxesInHeight )  )
             {
@@ -36,6 +54,7 @@ namespace Mnswpr.library
         {
             GameLost = false;
             GameWin = false;
+            FlagsCount = 0;
             ClearAll();
             AddBoxes();
             AddMines();

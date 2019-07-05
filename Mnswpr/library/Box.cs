@@ -350,11 +350,19 @@ namespace Mnswpr.library
                 }
                 else if (e.Button == MouseButtons.Right)
                 {
+                    if(HasFlag)
+                    {
+                        Game.FlagsCount--;
+
+                    }
                     HasFlag = !HasFlag;
+
+                    
                     if (HasFlag)
                     {
+                        Game.FlagsCount++;
                         Game.CheckGameWin();
-                    }
+                    }                    
                 }
             }           
         }
