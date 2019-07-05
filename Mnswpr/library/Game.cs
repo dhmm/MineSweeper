@@ -20,6 +20,7 @@ namespace Mnswpr.library
         Box[,] Boxes = null;
 
         public bool GameLost { set; get; } = false;
+        public bool GameWin { set; get; } = false;
 
         public Game(Panel pnlArena)
         {
@@ -34,6 +35,7 @@ namespace Mnswpr.library
         public void Start()
         {
             GameLost = false;
+            GameWin = false;
             ClearAll();
             AddBoxes();
             AddMines();
@@ -149,7 +151,7 @@ namespace Mnswpr.library
         
         public void OpenBoxWithLeftClick(int row,int col)
         {
-            if (GameLost == false)
+            if (GameLost == false || GameWin == false)
             {
                 Box box = Boxes[row, col];
                 box.Open();
@@ -159,17 +161,22 @@ namespace Mnswpr.library
                 }
                 else if (box.TotalMines == 0)
                 {
-                    box.OpenAll();
+                    box.OpenAll();                   
+                }
+                if (box.HasMine == false)
+                {
+                    CheckGameWin();
                 }
             }
         }
         //Must run only on opened cell
         public void OpenBoxWithRLClick(int row,int col)
         {
-            if (GameLost == false)
+            if (GameLost == false || GameWin == false)
             {
                 Box box = Boxes[row, col];
                 box.OpenAllWithrRLClick();
+                CheckGameWin();
             }       
         }
 
@@ -188,6 +195,29 @@ namespace Mnswpr.library
                 {
                     Boxes[row, col].GameLostOpen();
                 }
+            }
+        }
+
+        public void CheckGameWin()
+        {
+            int all = BoxesInWidth * BoxesInHeight;
+
+            int opened = 0;
+            for (int row = 0; row < BoxesInWidth; row++)
+            {
+                for (int col = 0; col < BoxesInHeight; col++)
+                {
+                    Box box = Boxes[row, col];
+                    if (box.Opened || box.HasFlag && box.Opened ==false)
+                    {
+                        opened++;
+                    }
+                }
+            }
+            if (all == opened)
+            {
+                GameWin = true;
+                MessageBox.Show("You WIN");
             }
         }
     }

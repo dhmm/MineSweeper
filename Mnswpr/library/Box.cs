@@ -342,14 +342,21 @@ namespace Mnswpr.library
 
         private void btnBox_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (Game.GameLost == false || Game.GameWin == false)
             {
-                Game.OpenBoxWithLeftClick(Row, Col);
-            }
-            else if (e.Button == MouseButtons.Right)
-            {
-                HasFlag = !HasFlag;
-            }            
+                if (e.Button == MouseButtons.Left)
+                {
+                    Game.OpenBoxWithLeftClick(Row, Col);
+                }
+                else if (e.Button == MouseButtons.Right)
+                {
+                    HasFlag = !HasFlag;
+                    if (HasFlag)
+                    {
+                        Game.CheckGameWin();
+                    }
+                }
+            }           
         }
 
         private void lblMines_MouseDown(object sender, MouseEventArgs e)
@@ -487,7 +494,7 @@ namespace Mnswpr.library
 
         private void pctFlag_MouseClick(object sender, MouseEventArgs e)
         {
-            if (Game.GameLost == false)
+            if (Game.GameLost == false || Game.GameWin == false)
             {
                 if (e.Button == MouseButtons.Right)
                 {
